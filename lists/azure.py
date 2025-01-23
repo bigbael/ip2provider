@@ -4,9 +4,9 @@ import requests
 import re
 
 AZURE_CONFIRMATION_URL = "https://www.microsoft.com/en-us/download/confirmation.aspx?id=56519"
-AZURE_DEFAULT_URL = "https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_20231113.json"
+AZURE_DEFAULT_URL = "https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_20250120.json"
 AZURE_GOV_CONFIRMATION_URL = "https://www.microsoft.com/en-us/download/confirmation.aspx?id=57063"
-AZURE_GOV_DEFAULT_URL = "https://download.microsoft.com/download/6/4/D/64DB03BF-895B-4173-A8B1-BA4AD5D4DF22/ServiceTags_AzureGovernment_20231113.json"
+AZURE_GOV_DEFAULT_URL = "https://download.microsoft.com/download/6/4/D/64DB03BF-895B-4173-A8B1-BA4AD5D4DF22/ServiceTags_AzureGovernment_20250120.json"
 AZURE_DOWNLOAD_REGEX = r'https://download\.microsoft\.com.*?\.json'
 AZURE_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
 
@@ -40,8 +40,10 @@ def update():
 			service = group['properties']['systemService']
 			region = group['properties']['region']
 
-			if not service or not region:
-				continue
+			if not service:
+                service = "NotSpecified"
+            if not region:
+                region = "NotSpecified"
 
 			for cidr in group['properties']['addressPrefixes']:
 				results.append("%s %s %s %s" % (cidr, provider, service, region))
