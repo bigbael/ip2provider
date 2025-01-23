@@ -41,9 +41,9 @@ def update():
 			region = group['properties']['region']
 
 			if not service:
-                service = "NotSpecified"
-            if not region:
-                region = "NotSpecified"
+				service = "NotSpecified"
+			if not region:
+				region = "NotSpecified"
 
 			for cidr in group['properties']['addressPrefixes']:
 				results.append("%s %s %s %s" % (cidr, provider, service, region))
